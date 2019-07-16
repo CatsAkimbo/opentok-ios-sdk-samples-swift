@@ -38,6 +38,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         doConnect()
+        addResizeButton()
+    }
+
+    func addResizeButton() {
+        let button = UIButton(type: UIButton.ButtonType.roundedRect)
+        button.setTitle("resize", for: .normal)
+        button.addTarget(self, action: #selector(resize), for: .touchUpInside)
+        view.addSubview(button)
+        button.frame = CGRect(x: 0, y: kWidgetHeight*2, width: 100, height: 50)
+    }
+
+    @objc func resize() {
+        if let pubView = publisher.view {
+            let newWidth = Int(pubView.frame.width) == kWidgetWidth ? kWidgetWidth / 2 : kWidgetWidth
+            pubView.frame = CGRect(x: 0, y: 0, width: newWidth, height: kWidgetHeight)
+        }
     }
     
     /**
